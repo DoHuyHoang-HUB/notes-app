@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.example.notes.R
 import com.example.notes.databinding.FragmentCreateNoteBinding
 import com.example.notes.ui.viewmodel.NoteViewModel
@@ -33,6 +34,10 @@ class CreateNoteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.imageBack.setOnClickListener {  }
+        binding.imageBack.setOnClickListener { onBackPressed() }
+    }
+
+    private fun onBackPressed() {
+        findNavController().navigate(R.id.action_createNoteFragment_to_noteListFragment)
     }
 }
