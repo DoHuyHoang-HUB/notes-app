@@ -1,9 +1,8 @@
-package com.example.notes.activities
+package com.example.notes.ui
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.notes.activities.CreateNoteActivity
 import com.example.notes.databinding.ActivityMainBinding
 
 private const val REQUEST_CODE_ADD_NOTE = 1
