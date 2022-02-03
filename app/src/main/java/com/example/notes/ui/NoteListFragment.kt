@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.notes.R
 import com.example.notes.databinding.FragmentNoteListBinding
 import com.example.notes.ui.adapter.NotesListAdapter
@@ -37,6 +38,8 @@ class NoteListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val adapter = NotesListAdapter()
+
+        binding.notesRecyclerview.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
 
         viewModel.allNotes.observe(this.viewLifecycleOwner) { notes ->
             notes.let {

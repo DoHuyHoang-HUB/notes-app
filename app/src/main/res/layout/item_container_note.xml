@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_note"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -18,7 +19,8 @@
         android:fontFamily="@font/ubuntu_bold"
         android:includeFontPadding="false"
         android:textColor="@color/whiteColor"
-        android:textSize="@dimen/_13ssp" />
+        android:textSize="@dimen/_13ssp"
+        tools:text="Title"/>
 
     <TextView
         android:id="@+id/text_subtitle"
@@ -31,7 +33,8 @@
         android:fontFamily="@font/ubuntu_regular"
         android:includeFontPadding="false"
         android:textColor="@color/noteSubtitleTextColor"
-        android:textSize="@dimen/_12ssp" />
+        android:textSize="@dimen/_12ssp"
+        tools:text="Subtitle"/>
 
     <TextView
         android:id="@+id/text_date_time"
@@ -43,6 +46,7 @@
         android:fontFamily="@font/ubuntu_regular"
         android:includeFontPadding="false"
         android:textColor="@color/noteSubtitleTextColor"
-        android:textSize="@dimen/_7ssp" />
+        android:textSize="@dimen/_7ssp"
+        tools:text="Date time"/>
 
 </LinearLayout>
