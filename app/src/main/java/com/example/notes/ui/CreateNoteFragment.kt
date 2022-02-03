@@ -38,6 +38,6 @@ class CreateNoteFragment : Fragment() {
     }
 
     private fun onBackPressed() {
-        findNavController().navigate(R.id.action_createNoteFragment_to_noteListFragment)
+        activity?.onBackPressed()
     }
 }
