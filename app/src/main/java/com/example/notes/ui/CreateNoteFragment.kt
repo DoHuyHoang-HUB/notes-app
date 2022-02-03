@@ -37,13 +37,14 @@ class CreateNoteFragment : Fragment() {
 
         binding.textDateTime.text = viewModel.dateNow
         binding.layoutBack.setOnClickListener { onBackPressed() }
+        binding.imageSave.setOnClickListener { saveNote() }
     }
 
     private fun onBackPressed() {
         activity?.onBackPressed()
     }
 
-    private fun addNote() {
+    private fun saveNote() {
         if(isValidEntry()) {
             viewModel.addNote(
                 binding.inputNoteTitle.text.toString(),
@@ -54,6 +55,8 @@ class CreateNoteFragment : Fragment() {
                 null,
                 null
             )
+            Toast.makeText(context, "Save successfully", Toast.LENGTH_SHORT).show()
+            onBackPressed()
         }
     }
 
