@@ -10,6 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.notes.R
 import com.example.notes.databinding.FragmentNoteListBinding
+import com.example.notes.ui.adapter.NotesListAdapter
 import com.example.notes.ui.viewmodel.NoteViewModel
 import com.example.notes.ui.viewmodel.NoteViewModelFactory
 
@@ -35,7 +36,18 @@ class NoteListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.imageAddNoteMain.setOnClickListener { openCreateNoteFragment() }
+        val adapter = NotesListAdapter()
+
+        viewModel.allNotes.observe(this.viewLifecycleOwner) { notes ->
+            notes.let {
+                adapter.submitList(it)
+            }
+        }
+
+        binding.apply {
+            notesRecyclerview.adapter = adapter
+            imageAddNoteMain.setOnClickListener { openCreateNoteFragment() }
+        }
     }
 
     private fun openCreateNoteFragment() {
