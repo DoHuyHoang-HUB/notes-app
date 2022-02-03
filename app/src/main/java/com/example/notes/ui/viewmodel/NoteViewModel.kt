@@ -5,11 +5,15 @@ import com.example.notes.dao.NoteDao
 import com.example.notes.entities.Note
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.*
 
 class NoteViewModel(
     private val noteDao: NoteDao
 ): ViewModel() {
     val allNotes: LiveData<List<Note>> = noteDao.getAllNotes().asLiveData()
+
+    val dateNow = getNow()
 
     private fun insertNote(note: Note) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -22,9 +26,9 @@ class NoteViewModel(
         dateTime: String,
         subtitle: String,
         noteText: String,
-        imagePath: String,
-        color: String,
-        webLink: String
+        imagePath: String?,
+        color: String?,
+        webLink: String?
     ) {
         val note = Note(
             title = title,
@@ -37,6 +41,13 @@ class NoteViewModel(
         )
         insertNote(note)
     }
+
+    private fun getNow(): String {
+        val formatter = SimpleDateFormat("EEEE, dd MMMM yyyy HH:mm a", Locale.getDefault())
+        val calendar = Calendar.getInstance()
+        return formatter.format(calendar.time)
+    }
+
 }
 
 class NoteViewModelFactory(private val noteDao: NoteDao): ViewModelProvider.Factory {
