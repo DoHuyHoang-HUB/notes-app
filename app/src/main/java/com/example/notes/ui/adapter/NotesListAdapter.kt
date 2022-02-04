@@ -1,8 +1,10 @@
 package com.example.notes.ui.adapter
 
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -43,6 +45,12 @@ class NotesListAdapter(
                 (binding.layoutNote.background as GradientDrawable).setColor(Color.parseColor(note.color))
             } else {
                 (binding.layoutNote.background as GradientDrawable).setColor(Color.parseColor("#333333"))
+            }
+            if (note.imagePath != null) {
+                binding.imageNote.setImageBitmap(BitmapFactory.decodeFile(note.imagePath))
+                binding.imageNote.visibility = View.VISIBLE
+            } else {
+                binding.imageNote.visibility = View.GONE
             }
         }
     }

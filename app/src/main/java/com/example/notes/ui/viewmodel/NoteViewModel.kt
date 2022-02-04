@@ -18,8 +18,10 @@ class NoteViewModel(
     private val _selectedNoteColor = MutableLiveData<String>()
     val selectedNoteColor: LiveData<String> = _selectedNoteColor
 
+    private val _selectedImagePath = MutableLiveData<String?>(null)
+
     init {
-        _selectedNoteColor.value = "#333333"
+        resetNote()
     }
 
     private fun insertNote(note: Note) {
@@ -33,8 +35,6 @@ class NoteViewModel(
         dateTime: String,
         subtitle: String,
         noteText: String,
-        imagePath: String?,
-        color: String?,
         webLink: String?
     ) {
         val note = Note(
@@ -42,8 +42,8 @@ class NoteViewModel(
             dateTime = dateTime,
             subtitle = subtitle,
             noteText = noteText,
-            imagePath = imagePath,
-            color = color,
+            imagePath = _selectedImagePath.value,
+            color = _selectedNoteColor.value,
             webLink = webLink
         )
         insertNote(note)
@@ -53,10 +53,19 @@ class NoteViewModel(
         _selectedNoteColor.value = selectedNoteColor
     }
 
+    fun setSelectedImagePath(selectedImagePath: String) {
+        _selectedImagePath.value = selectedImagePath
+    }
+
     private fun getNow(): String {
         val formatter = SimpleDateFormat("EEEE, dd MMMM yyyy HH:mm a", Locale.getDefault())
         val calendar = Calendar.getInstance()
         return formatter.format(calendar.time)
+    }
+
+    fun resetNote() {
+        _selectedNoteColor.value = "#333333"
+        _selectedImagePath.value = null
     }
 
 }

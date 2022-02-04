@@ -51,11 +51,13 @@ class NoteListFragment : Fragment() {
             notesRecyclerview.adapter = adapter
             imageAddNoteMain.setOnClickListener { openCreateNoteFragment() }
         }
+
     }
 
     private fun openCreateNoteFragment() {
         findNavController().navigate(R.id.action_noteListFragment_to_createNoteFragment)
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
