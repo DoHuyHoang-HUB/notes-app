@@ -3,17 +3,30 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/DHCN/Android/Kotlin/Notes/app/src/main/res/drawable-v24/background_note_color_1.xml" value="0.338" />
+        <entry key="..\:/DHCN/Android/Kotlin/Notes/app/src/main/res/drawable-v24/background_note_color_2.xml" value="0.3635" />
+        <entry key="..\:/DHCN/Android/Kotlin/Notes/app/src/main/res/drawable-v24/background_note_color_3.xml" value="0.3635" />
+        <entry key="..\:/DHCN/Android/Kotlin/Notes/app/src/main/res/drawable-v24/background_note_color_4.xml" value="0.3635" />
+        <entry key="..\:/DHCN/Android/Kotlin/Notes/app/src/main/res/drawable-v24/background_note_color_5.xml" value="0.338" />
+        <entry key="..\:/DHCN/Android/Kotlin/Notes/app/src/main/res/drawable/backgroud_note_color_checked.xml" value="0.338" />
         <entry key="..\:/DHCN/Android/Kotlin/Notes/app/src/main/res/drawable/background_add_button.xml" value="0.3105" />
         <entry key="..\:/DHCN/Android/Kotlin/Notes/app/src/main/res/drawable/background_done.xml" value="0.3105" />
+        <entry key="..\:/DHCN/Android/Kotlin/Notes/app/src/main/res/drawable/background_miscellaneous.xml" value="0.3105" />
         <entry key="..\:/DHCN/Android/Kotlin/Notes/app/src/main/res/drawable/background_note.xml" value="0.3105" />
+        <entry key="..\:/DHCN/Android/Kotlin/Notes/app/src/main/res/drawable/background_note_color_1.xml" value="0.3105" />
+        <entry key="..\:/DHCN/Android/Kotlin/Notes/app/src/main/res/drawable/background_note_color_2.xml" value="0.338" />
+        <entry key="..\:/DHCN/Android/Kotlin/Notes/app/src/main/res/drawable/background_note_color_3.xml" value="0.338" />
+        <entry key="..\:/DHCN/Android/Kotlin/Notes/app/src/main/res/drawable/background_note_color_4.xml" value="0.338" />
         <entry key="..\:/DHCN/Android/Kotlin/Notes/app/src/main/res/drawable/background_search.xml" value="0.3105" />
         <entry key="..\:/DHCN/Android/Kotlin/Notes/app/src/main/res/drawable/background_subtitle_indicator.xml" value="0.3105" />
         <entry key="..\:/DHCN/Android/Kotlin/Notes/app/src/main/res/drawable/ic_done.xml" value="0.3105" />
+        <entry key="..\:/DHCN/Android/Kotlin/Notes/app/src/main/res/drawable/radio_button_background.xml" value="0.338" />
         <entry key="..\:/DHCN/Android/Kotlin/Notes/app/src/main/res/layout/activity_create_note.xml" value="0.36666666666666664" />
         <entry key="..\:/DHCN/Android/Kotlin/Notes/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/DHCN/Android/Kotlin/Notes/app/src/main/res/layout/fragment_create_note.xml" value="0.36666666666666664" />
         <entry key="..\:/DHCN/Android/Kotlin/Notes/app/src/main/res/layout/fragment_note_list.xml" value="0.36666666666666664" />
         <entry key="..\:/DHCN/Android/Kotlin/Notes/app/src/main/res/layout/item_container_note.xml" value="0.36666666666666664" />
+        <entry key="..\:/DHCN/Android/Kotlin/Notes/app/src/main/res/layout/layout_miscellaneous.xml" value="0.36666666666666664" />
       </map>
     </option>
   </component>

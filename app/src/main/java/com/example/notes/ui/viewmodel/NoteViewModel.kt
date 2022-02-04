@@ -15,6 +15,13 @@ class NoteViewModel(
 
     val dateNow = getNow()
 
+    private val _selectedNoteColor = MutableLiveData<String>()
+    val selectedNoteColor: LiveData<String> = _selectedNoteColor
+
+    init {
+        _selectedNoteColor.value = "#333333"
+    }
+
     private fun insertNote(note: Note) {
         viewModelScope.launch(Dispatchers.IO) {
             noteDao.insertNote(note)
@@ -40,6 +47,10 @@ class NoteViewModel(
             webLink = webLink
         )
         insertNote(note)
+    }
+
+    fun setSelectedNoteColor(selectedNoteColor: String) {
+        _selectedNoteColor.value = selectedNoteColor
     }
 
     private fun getNow(): String {
