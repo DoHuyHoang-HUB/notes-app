@@ -41,61 +41,61 @@
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <FrameLayout
+            <RadioButton
+                android:layout_width="@dimen/_35sdp"
+                android:layout_height="@dimen/_35sdp"
+                android:background="@drawable/radio_button_background_1"
+                android:button="@android:color/transparent" />
+
+            <View
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" >
+                android:layout_height="0dp"
+                android:layout_weight="1" />
 
-                <RadioButton
-                    android:layout_width="@dimen/_35sdp"
-                    android:layout_height="@dimen/_35sdp"
-                    android:background="@drawable/radio_button_background"
-                    android:button="@android:color/transparent"
-                    android:checked="true" />
+            <RadioButton
+                android:layout_width="@dimen/_35sdp"
+                android:layout_height="@dimen/_35sdp"
+                android:background="@drawable/radio_button_background_2"
+                android:button="@android:color/transparent" />
 
-            </FrameLayout>
-
-            <FrameLayout
+            <View
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" >
+                android:layout_height="0dp"
+                android:layout_weight="1" />
 
-                <RadioButton
-                    android:layout_width="@dimen/_35sdp"
-                    android:layout_height="@dimen/_35sdp"
-                    android:background="@drawable/radio_button_background"
-                    android:button="@android:color/transparent"
-                    android:checked="true" />
+            <RadioButton
+                android:layout_width="@dimen/_35sdp"
+                android:layout_height="@dimen/_35sdp"
+                android:background="@drawable/radio_button_background_3"
+                android:button="@android:color/transparent" />
 
-            </FrameLayout>
-
-            <FrameLayout
+            <View
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" >
+                android:layout_height="0dp"
+                android:layout_weight="1" />
 
-                <RadioButton
-                    android:layout_width="@dimen/_35sdp"
-                    android:layout_height="@dimen/_35sdp"
-                    android:background="@drawable/radio_button_background"
-                    android:button="@android:color/transparent"
-                    android:checked="true" />
 
-            </FrameLayout>
+            <RadioButton
+                android:layout_width="@dimen/_35sdp"
+                android:layout_height="@dimen/_35sdp"
+                android:background="@drawable/radio_button_background_4"
+                android:button="@android:color/transparent" />
 
-            <FrameLayout
+            <View
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" >
+                android:layout_height="0dp"
+                android:layout_weight="1" />
 
-                <RadioButton
-                    android:layout_width="@dimen/_35sdp"
-                    android:layout_height="@dimen/_35sdp"
-                    android:background="@drawable/radio_button_background"
-                    android:button="@android:color/transparent"
-                    android:checked="true" />
+            <RadioButton
+                android:layout_width="@dimen/_35sdp"
+                android:layout_height="@dimen/_35sdp"
+                android:background="@drawable/radio_button_background_5"
+                android:button="@android:color/transparent" />
 
-            </FrameLayout>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
 
             <TextView
                 android:layout_width="wrap_content"
