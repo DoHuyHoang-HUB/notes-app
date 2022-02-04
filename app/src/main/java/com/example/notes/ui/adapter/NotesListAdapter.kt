@@ -1,5 +1,7 @@
 package com.example.notes.ui.adapter
 
+import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -37,6 +39,11 @@ class NotesListAdapter(
             binding.textTitle.text = note.title
             binding.textDateTime.text = note.dateTime
             binding.textSubtitle.text = note.subtitle
+            if (note.color != null) {
+                (binding.layoutNote.background as GradientDrawable).setColor(Color.parseColor(note.color))
+            } else {
+                (binding.layoutNote.background as GradientDrawable).setColor(Color.parseColor("#333333"))
+            }
         }
     }
 

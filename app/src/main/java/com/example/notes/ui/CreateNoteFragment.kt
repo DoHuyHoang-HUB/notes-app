@@ -67,7 +67,7 @@ class CreateNoteFragment : Fragment() {
                 binding.inputNoteSubtitle.text.toString(),
                 binding.inputNote.text.toString(),
                 null,
-                null,
+                viewModel.selectedNoteColor.value,
                 null
             )
             Toast.makeText(context, "Save successfully", Toast.LENGTH_SHORT).show()
