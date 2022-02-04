@@ -20,6 +20,9 @@ class NoteViewModel(
 
     private val _selectedImagePath = MutableLiveData<String?>(null)
 
+    private val _webURL = MutableLiveData<String?>(null)
+    val webURL: LiveData<String?> = _webURL
+
     init {
         resetNote()
     }
@@ -35,7 +38,6 @@ class NoteViewModel(
         dateTime: String,
         subtitle: String,
         noteText: String,
-        webLink: String?
     ) {
         val note = Note(
             title = title,
@@ -44,7 +46,7 @@ class NoteViewModel(
             noteText = noteText,
             imagePath = _selectedImagePath.value,
             color = _selectedNoteColor.value,
-            webLink = webLink
+            webLink = _webURL.value
         )
         insertNote(note)
     }
@@ -57,6 +59,10 @@ class NoteViewModel(
         _selectedImagePath.value = selectedImagePath
     }
 
+    fun setWebURL(webUrl: String) {
+        _webURL.value = webUrl
+    }
+
     private fun getNow(): String {
         val formatter = SimpleDateFormat("EEEE, dd MMMM yyyy HH:mm a", Locale.getDefault())
         val calendar = Calendar.getInstance()
@@ -66,6 +72,7 @@ class NoteViewModel(
     fun resetNote() {
         _selectedNoteColor.value = "#333333"
         _selectedImagePath.value = null
+        _webURL.value = null
     }
 
 }

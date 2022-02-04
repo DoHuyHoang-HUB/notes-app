@@ -10,19 +10,23 @@ import android.graphics.drawable.GradientDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Patterns
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.notes.R
 import com.example.notes.databinding.FragmentCreateNoteBinding
+import com.example.notes.databinding.LayoutAddUrlBinding
 import com.example.notes.ui.viewmodel.NoteViewModel
 import com.example.notes.ui.viewmodel.NoteViewModelFactory
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -58,6 +62,7 @@ class CreateNoteFragment : Fragment() {
             miscellaneous.viewModel = viewModel
             miscellaneous.createNoteFragment = this@CreateNoteFragment
             textDateTime.text = viewModel.dateNow
+            textWebUrl.text = viewModel.webURL.value
             (viewSubtitleIndicator.background as GradientDrawable).setColor(Color.parseColor(viewModel.selectedNoteColor.value))
             layoutBack.setOnClickListener { onBackPressed() }
             imageSave.setOnClickListener { saveNote() }
@@ -82,7 +87,6 @@ class CreateNoteFragment : Fragment() {
                 viewModel.dateNow,
                 binding.inputNoteSubtitle.text.toString(),
                 binding.inputNote.text.toString(),
-                null
             )
             Toast.makeText(context, "Save successfully", Toast.LENGTH_SHORT).show()
             onBackPressed()
@@ -180,5 +184,25 @@ class CreateNoteFragment : Fragment() {
             cursor.close()
         }
         return filePath
+    }
+
+    fun showAddURLDialog() {
+        BottomSheetBehavior.from(binding.miscellaneous.layoutMiscellaneous).state = BottomSheetBehavior.STATE_COLLAPSED
+        val listener = object: AddUrlDialog.EnterURLListener {
+            override fun enterURL(binding: LayoutAddUrlBinding, dialog: AlertDialog) {
+                if (binding.inputUrl.text.toString().trim().isEmpty())
+                    Toast.makeText(context, "Enter URL", Toast.LENGTH_SHORT).show()
+                else if (!Patterns.WEB_URL.matcher(binding.inputUrl.text.toString().trim()).matches()) {
+                    Toast.makeText(context, "Enter valid URL", Toast.LENGTH_SHORT).show()
+                } else {
+                    viewModel.setWebURL(binding.inputUrl.text.toString().trim())
+                    this@CreateNoteFragment.binding.textWebUrl.text = viewModel.webURL.value
+                    this@CreateNoteFragment.binding.layoutWebUrl.visibility = View.VISIBLE
+                    dialog.dismiss()
+                }
+            }
+        }
+        val dialogAddUrl = AddUrlDialog(requireContext(), listener)
+        dialogAddUrl.show()
     }
 }

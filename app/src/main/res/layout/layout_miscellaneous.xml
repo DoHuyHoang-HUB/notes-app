@@ -156,6 +156,7 @@
             android:layout_marginBottom="@dimen/_10sdp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
+            android:onClick="@{() -> createNoteFragment.showAddURLDialog()}"
             tools:ignore="UseCompoundDrawables">
 
             <ImageView
