@@ -2,6 +2,7 @@ package com.example.notes.ui
 
 import android.Manifest
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
@@ -13,6 +14,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
@@ -83,7 +85,7 @@ class CreateNoteFragment : Fragment() {
                 null
             )
             Toast.makeText(context, "Save successfully", Toast.LENGTH_SHORT).show()
-            findNavController().navigate(R.id.action_createNoteFragment_to_noteListFragment)
+            onBackPressed()
             viewModel.resetNote()
         }
     }
@@ -130,6 +132,8 @@ class CreateNoteFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        val inputMethodManager = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(requireActivity().currentFocus?.windowToken, 0)
         _binding = null
     }
 
