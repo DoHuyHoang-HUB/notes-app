@@ -50,6 +50,11 @@ class CreateNoteFragment : Fragment() {
         }
     }
 
+    fun setSubtitleIndicatorColor(selectedNoteColor: String) {
+        viewModel.setSelectedNoteColor(selectedNoteColor)
+        (binding.viewSubtitleIndicator.background as GradientDrawable).setColor(Color.parseColor(viewModel.selectedNoteColor.value))
+    }
+
     private fun onBackPressed() {
         activity?.onBackPressed()
     }
