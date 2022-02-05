@@ -18,9 +18,9 @@ class NoteViewModel(
     private val _selectedNoteColor = MutableLiveData<String>()
     val selectedNoteColor: LiveData<String> = _selectedNoteColor
 
-    private val _selectedImagePath = MutableLiveData<String?>(null)
+    private val _selectedImagePath = MutableLiveData<String?>()
 
-    private val _webURL = MutableLiveData<String?>(null)
+    private val _webURL = MutableLiveData<String?>()
     val webURL: LiveData<String?> = _webURL
 
     init {
@@ -58,8 +58,21 @@ class NoteViewModel(
     fun updateNote(
         id: Int,
         title: String,
+        dateTime: String,
+        subtitle: String,
+        noteText: String,
     ) {
-
+        val note = Note(
+            id = id,
+            dateTime = dateTime,
+            title = title,
+            subtitle = subtitle,
+            noteText = noteText,
+            imagePath = _selectedImagePath.value,
+            color = _selectedNoteColor.value,
+            webLink = _webURL.value
+        )
+        updateNote(note)
     }
 
     private fun updateNote(note: Note) {
@@ -68,15 +81,21 @@ class NoteViewModel(
         }
     }
 
+    fun deleteNote(note: Note) {
+        viewModelScope.launch(Dispatchers.IO) {
+            noteDao.deleteNote(note)
+        }
+    }
+
     fun setSelectedNoteColor(selectedNoteColor: String) {
         _selectedNoteColor.value = selectedNoteColor
     }
 
-    fun setSelectedImagePath(selectedImagePath: String) {
+    fun setSelectedImagePath(selectedImagePath: String?) {
         _selectedImagePath.value = selectedImagePath
     }
 
-    fun setWebURL(webUrl: String) {
+    fun setWebURL(webUrl: String?) {
         _webURL.value = webUrl
     }
 
@@ -95,7 +114,7 @@ class NoteViewModel(
 }
 
 class NoteViewModelFactory(private val noteDao: NoteDao): ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if(modelClass.isAssignableFrom(NoteViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
             return NoteViewModel(noteDao) as T

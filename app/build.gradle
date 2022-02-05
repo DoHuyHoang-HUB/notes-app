@@ -17,6 +17,10 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+    buildFeatures {
+        dataBinding true
+        viewBinding true
+    }
 
     buildTypes {
         release {
@@ -30,10 +34,6 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
-    }
-    buildFeatures {
-        dataBinding true
-        viewBinding true
     }
 }
 
@@ -53,9 +53,9 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:2.4.0"
 
     // Lifecycle
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.3.1"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:2.3.1"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.4.0"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:2.4.0"
 
     // Room (for database)
     implementation "androidx.room:room-runtime:2.4.1"
@@ -71,4 +71,6 @@ dependencies {
 
     // RoundedImageView
     implementation "com.makeramen:roundedimageview:2.3.0"
+
+    kapt "androidx.databinding:databinding-common:7.1.0"
 }

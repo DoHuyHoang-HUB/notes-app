@@ -21,7 +21,6 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -79,12 +78,14 @@ class CreateNoteFragment : Fragment() {
                 imageSave.setOnClickListener { saveNote() }
             }
         }
-
         binding.apply {
+            miscellaneous.lifecycleOwner = viewLifecycleOwner
             miscellaneous.viewModel = viewModel
             miscellaneous.createNoteFragment = this@CreateNoteFragment
             layoutBack.setOnClickListener { onBackPressed() }
             miscellaneous.textMiscellaneous.setOnClickListener { bottomSheetState(BottomSheetBehavior.from(miscellaneous.layoutMiscellaneous)) }
+            imageRemoveWebUrl.setOnClickListener { removeUrl() }
+            imageRemoveImage.setOnClickListener { removeImage() }
         }
     }
 
@@ -93,6 +94,7 @@ class CreateNoteFragment : Fragment() {
             inputNoteTitle.setText(note.title, TextView.BufferType.SPANNABLE)
             inputNoteSubtitle.setText(note.subtitle, TextView.BufferType.SPANNABLE)
             inputNote.setText(note.noteText, TextView.BufferType.SPANNABLE)
+            textDateTime.text = note.dateTime
             note.webLink?.let {
                 textWebUrl.text = it
                 layoutWebUrl.visibility = View.VISIBLE
@@ -101,11 +103,40 @@ class CreateNoteFragment : Fragment() {
             note.imagePath?.let {
                 imageNote.setImageBitmap(BitmapFactory.decodeFile(it))
                 imageNote.visibility = View.VISIBLE
+                imageRemoveImage.visibility = View.VISIBLE
                 viewModel.setSelectedImagePath(it)
             }
             (viewSubtitleIndicator.background as GradientDrawable).setColor(Color.parseColor(note.color))
             note.color?.let { viewModel.setSelectedNoteColor(it) }
+            imageSave.setOnClickListener { updateNote() }
+            miscellaneous.layoutDeleteNote.visibility = View.VISIBLE
         }
+    }
+
+    fun showDialogDelete() {
+        BottomSheetBehavior.from(binding.miscellaneous.layoutMiscellaneous).state = BottomSheetBehavior.STATE_COLLAPSED
+        val deleteAlertDialog = DeleteAlertDialog(requireContext()) {
+            deleteNote()
+        }
+        deleteAlertDialog.show()
+    }
+
+    private fun deleteNote() {
+        viewModel.deleteNote(note)
+        findNavController().navigateUp()
+    }
+
+    private fun removeImage() {
+        viewModel.setSelectedImagePath(null)
+        binding.imageNote.setImageBitmap(null)
+        binding.imageNote.visibility = View.GONE
+        binding.imageRemoveImage.visibility = View.GONE
+    }
+
+    private fun removeUrl() {
+        viewModel.setWebURL(null)
+        binding.textWebUrl.text = null
+        binding.layoutWebUrl.visibility = View.GONE
     }
 
     fun setSubtitleIndicatorColor(selectedNoteColor: String) {
@@ -134,6 +165,16 @@ class CreateNoteFragment : Fragment() {
 
     private fun updateNote() {
         if (isValidEntry()) {
+            viewModel.updateNote(
+                navigationArgs.id,
+                binding.inputNoteTitle.text.toString(),
+                binding.textDateTime.text.toString(),
+                binding.inputNoteSubtitle.text.toString(),
+                binding.inputNote.text.toString()
+            )
+            Toast.makeText(context, "Update successfully", Toast.LENGTH_SHORT).show()
+            onBackPressed()
+            viewModel.resetNote()
         }
     }
 
@@ -208,6 +249,7 @@ class CreateNoteFragment : Fragment() {
                     binding.apply {
                         imageNote.setImageURI(selectedImageUri)
                         imageNote.visibility = View.VISIBLE
+                        imageRemoveImage.visibility = View.VISIBLE
                     }
                     viewModel.setSelectedImagePath(getPathFromUri(selectedImageUri))
                 }
