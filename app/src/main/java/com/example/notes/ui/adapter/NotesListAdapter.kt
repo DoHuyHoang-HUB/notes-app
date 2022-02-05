@@ -39,6 +39,8 @@ class NotesListAdapter(
         holder.bind(note)
     }
 
+
+
     class NotesViewHolder(private val binding: ItemContainerNoteBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(note: Note) {
             binding.textTitle.text = note.title
@@ -57,5 +59,4 @@ class NotesListAdapter(
             }
         }
     }
-
 }

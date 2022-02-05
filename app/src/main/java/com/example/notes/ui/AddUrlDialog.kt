@@ -31,7 +31,6 @@ class AddUrlDialog(
         setContentView(binding.root)
         window?.setBackgroundDrawable(ColorDrawable(0))
 
-        binding.inputUrl.requestFocus()
         binding.textAdd.setOnClickListener { listener.enterURL(binding, this) }
         binding.textCancel.setOnClickListener { dismiss() }
     }

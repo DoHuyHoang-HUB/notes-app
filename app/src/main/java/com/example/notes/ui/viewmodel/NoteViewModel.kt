@@ -11,8 +11,6 @@ import java.util.*
 class NoteViewModel(
     private val noteDao: NoteDao
 ): ViewModel() {
-    val allNotes: LiveData<List<Note>> = noteDao.getAllNotes().asLiveData()
-
     val dateNow = getNow()
 
     private val _selectedNoteColor = MutableLiveData<String>()
@@ -25,6 +23,10 @@ class NoteViewModel(
 
     init {
         resetNote()
+    }
+
+    fun getAllNote(searchText: String): LiveData<List<Note>> {
+        return noteDao.getAllNotes("%$searchText%").asLiveData()
     }
 
     private fun insertNote(note: Note) {

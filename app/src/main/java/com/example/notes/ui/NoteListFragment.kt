@@ -1,10 +1,14 @@
 package com.example.notes.ui
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -15,7 +19,7 @@ import com.example.notes.ui.adapter.NotesListAdapter
 import com.example.notes.ui.viewmodel.NoteViewModel
 import com.example.notes.ui.viewmodel.NoteViewModelFactory
 
-class NoteListFragment : Fragment() {
+class NoteListFragment : Fragment(), SearchView.OnQueryTextListener {
 
     private var _binding: FragmentNoteListBinding? = null
     private val binding get() = _binding!!
@@ -41,11 +45,12 @@ class NoteListFragment : Fragment() {
             val action = NoteListFragmentDirections
                 .actionNoteListFragmentToCreateNoteFragment(note.id)
             findNavController().navigate(action)
+            binding.inputSearch.text = null
         }
 
         binding.notesRecyclerview.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
 
-        viewModel.allNotes.observe(this.viewLifecycleOwner) { notes ->
+        viewModel.getAllNote("").observe(this.viewLifecycleOwner) { notes ->
             notes.let {
                 adapter.submitList(it)
             }
@@ -54,6 +59,13 @@ class NoteListFragment : Fragment() {
         binding.apply {
             notesRecyclerview.adapter = adapter
             imageAddNoteMain.setOnClickListener { openCreateNoteFragment() }
+            inputSearch.addTextChangedListener {
+                viewModel.getAllNote(inputSearch.text.toString()).observe(viewLifecycleOwner) { notes ->
+                    notes.let {
+                        adapter.submitList(it)
+                    }
+                }
+            }
         }
 
     }
@@ -66,5 +78,13 @@ class NoteListFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        TODO("Not yet implemented")
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        TODO("Not yet implemented")
     }
 }
