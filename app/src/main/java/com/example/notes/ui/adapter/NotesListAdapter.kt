@@ -13,7 +13,7 @@ import com.example.notes.databinding.ItemContainerNoteBinding
 import com.example.notes.entities.Note
 
 class NotesListAdapter(
-
+    private val clickListener: (Note) -> Unit
 ): ListAdapter<Note, NotesListAdapter.NotesViewHolder>(DiffCallback) {
 
     companion object DiffCallback: DiffUtil.ItemCallback<Note>() {
@@ -33,6 +33,9 @@ class NotesListAdapter(
 
     override fun onBindViewHolder(holder: NotesViewHolder, position: Int) {
         val note = getItem(position)
+        holder.itemView.setOnClickListener {
+            clickListener(note)
+        }
         holder.bind(note)
     }
 

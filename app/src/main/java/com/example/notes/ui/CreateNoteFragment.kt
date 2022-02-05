@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.net.Uri
@@ -24,9 +25,11 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.notes.R
 import com.example.notes.databinding.FragmentCreateNoteBinding
 import com.example.notes.databinding.LayoutAddUrlBinding
+import com.example.notes.entities.Note
 import com.example.notes.ui.viewmodel.NoteViewModel
 import com.example.notes.ui.viewmodel.NoteViewModelFactory
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -40,6 +43,10 @@ class CreateNoteFragment : Fragment() {
 
     private var _binding: FragmentCreateNoteBinding? = null
     private val binding get() = _binding!!
+
+    lateinit var note: Note
+
+    private val navigationArgs: CreateNoteFragmentArgs by navArgs()
 
     private val viewModel: NoteViewModel by activityViewModels {
         NoteViewModelFactory(
@@ -57,16 +64,47 @@ class CreateNoteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val id = navigationArgs.id
+
+        if (id > 0) {
+            viewModel.retrieveNote(id).observe(this.viewLifecycleOwner) { selectNote ->
+                note = selectNote
+                bind(note)
+            }
+        } else {
+            binding.apply {
+                textDateTime.text = viewModel.dateNow
+                textWebUrl.text = viewModel.webURL.value
+                (viewSubtitleIndicator.background as GradientDrawable).setColor(Color.parseColor(viewModel.selectedNoteColor.value))
+                imageSave.setOnClickListener { saveNote() }
+            }
+        }
 
         binding.apply {
             miscellaneous.viewModel = viewModel
             miscellaneous.createNoteFragment = this@CreateNoteFragment
-            textDateTime.text = viewModel.dateNow
-            textWebUrl.text = viewModel.webURL.value
-            (viewSubtitleIndicator.background as GradientDrawable).setColor(Color.parseColor(viewModel.selectedNoteColor.value))
             layoutBack.setOnClickListener { onBackPressed() }
-            imageSave.setOnClickListener { saveNote() }
             miscellaneous.textMiscellaneous.setOnClickListener { bottomSheetState(BottomSheetBehavior.from(miscellaneous.layoutMiscellaneous)) }
+        }
+    }
+
+    private fun bind(note: Note) {
+        binding.apply {
+            inputNoteTitle.setText(note.title, TextView.BufferType.SPANNABLE)
+            inputNoteSubtitle.setText(note.subtitle, TextView.BufferType.SPANNABLE)
+            inputNote.setText(note.noteText, TextView.BufferType.SPANNABLE)
+            note.webLink?.let {
+                textWebUrl.text = it
+                layoutWebUrl.visibility = View.VISIBLE
+                viewModel.setWebURL(it)
+            }
+            note.imagePath?.let {
+                imageNote.setImageBitmap(BitmapFactory.decodeFile(it))
+                imageNote.visibility = View.VISIBLE
+                viewModel.setSelectedImagePath(it)
+            }
+            (viewSubtitleIndicator.background as GradientDrawable).setColor(Color.parseColor(note.color))
+            note.color?.let { viewModel.setSelectedNoteColor(it) }
         }
     }
 
@@ -91,6 +129,11 @@ class CreateNoteFragment : Fragment() {
             Toast.makeText(context, "Save successfully", Toast.LENGTH_SHORT).show()
             onBackPressed()
             viewModel.resetNote()
+        }
+    }
+
+    private fun updateNote() {
+        if (isValidEntry()) {
         }
     }
 

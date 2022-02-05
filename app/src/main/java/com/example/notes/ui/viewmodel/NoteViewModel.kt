@@ -51,6 +51,23 @@ class NoteViewModel(
         insertNote(note)
     }
 
+    fun retrieveNote(id: Int): LiveData<Note> {
+        return noteDao.getNote(id).asLiveData()
+    }
+
+    fun updateNote(
+        id: Int,
+        title: String,
+    ) {
+
+    }
+
+    private fun updateNote(note: Note) {
+        viewModelScope.launch(Dispatchers.IO) {
+            noteDao.updateNote(note)
+        }
+    }
+
     fun setSelectedNoteColor(selectedNoteColor: String) {
         _selectedNoteColor.value = selectedNoteColor
     }

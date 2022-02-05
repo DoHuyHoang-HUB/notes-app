@@ -37,7 +37,11 @@ class NoteListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = NotesListAdapter()
+        val adapter = NotesListAdapter { note ->
+            val action = NoteListFragmentDirections
+                .actionNoteListFragmentToCreateNoteFragment(note.id)
+            findNavController().navigate(action)
+        }
 
         binding.notesRecyclerview.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
 
